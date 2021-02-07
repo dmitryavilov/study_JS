@@ -15,5 +15,5 @@ console.log("Цель заработать " + mission + " долларов");
 addExpenses = addExpenses.toLowerCase();
 console.log(addExpenses.split(", "));
 
-let budgetDay = 30;
+let budgetDay = money / 30;
 console.log(budgetDay);
