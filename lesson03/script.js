@@ -8,22 +8,23 @@ let money = +prompt('Ваш месячный доход?'),
     amount1 = +prompt('Во сколько это обойдется?'),
     expenses2 = prompt('Введите обязательную статью расходов?'),
     amount2 = +prompt('Во сколько это обойдется?'),
+    amount = getExpensesMonth(),
     mission = 12000000,
-    budgetMonth = money - amount1 - amount2,
-    budgetDay = parseInt(budgetMonth / 30),
+    accumulatedMonth = getAccumulatedMonth(),
     period = 6;
 
-console.log('Месячный бюджет: ', budgetMonth);
-console.log(typeof(money));
-console.log(typeof(income));
-console.log(typeof(deposit));
+function getExpensesMonth() {
+    return amount1 + amount2;
+}
 
-console.log("Период равен " + period + " месяцев");
-console.log("Цель заработать " + mission + " долларов");
+function getAccumulatedMonth() {
+    return money - amount;
+}
+function getTargetMonth() {
+    return mission / accumulatedMonth;
+}
 
-addExpenses = addExpenses.toLowerCase();
-console.log(addExpenses.split(", "));
-console.log('Дневной бюджет: ', budgetDay);
+console.log(getTargetMonth());
 
 switch (true) {
     case budgetDay >= 1200:
