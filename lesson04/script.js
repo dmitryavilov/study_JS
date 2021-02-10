@@ -13,6 +13,12 @@ let money = +prompt('Ваш месячный доход?'),
     accumulatedMonth = getAccumulatedMonth(),
     period = 6;
 
+let showTypeOf = function(item) {
+    console.log(typeof item);
+};
+
+showTypeOf(money);
+
 function getExpensesMonth() {
     return amount1 + amount2;
 }
@@ -27,17 +33,17 @@ function getTargetMonth() {
 console.log(getTargetMonth());
 
 switch (true) {
-    case budgetDay >= 1200:
+    case getTargetMonth() >= 1200:
         console.log('У вас высокий уровень дохода');
         break;
-    case budgetDay === 600:
-    case budgetDay > 600 && budgetDay < 1200:
+    case getTargetMonth() === 600:
+    case getTargetMonth() > 600 && getTargetMonth() < 1200:
         console.log('У вас средний уровень дохода');
         break;
-    case budgetDay === 0:
-    case budgetDay > 0 && budgetDay < 600:
+    case getTargetMonth() === 0:
+    case getTargetMonth() > 0 && getTargetMonth() < 600:
         console.log('У вас низкий уровень дохода');
         break;
-    case budgetDay < 0:
+    case getTargetMonth() < 0:
         console.log('Что-то пошло не так');
 }
