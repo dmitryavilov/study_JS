@@ -10,6 +10,7 @@ let money = +prompt('Ваш месячный доход?'),
     amount2 = +prompt('Во сколько это обойдется?'),
     amount = getExpensesMonth(),
     mission = 12000000,
+    budgetDay,
     accumulatedMonth = getAccumulatedMonth(),
     period = 6;
 
@@ -30,20 +31,22 @@ function getTargetMonth() {
     return mission / accumulatedMonth;
 }
 
+budgetDay = getAccumulatedMonth() / 30;
+
 console.log(getTargetMonth());
 
 switch (true) {
-    case getTargetMonth() >= 1200:
+    case budgetDay >= 1200:
         console.log('У вас высокий уровень дохода');
         break;
-    case getTargetMonth() === 600:
-    case getTargetMonth() > 600 && getTargetMonth() < 1200:
+    case budgetDay === 600:
+    case budgetDay > 600 && budgetDay < 1200:
         console.log('У вас средний уровень дохода');
         break;
-    case getTargetMonth() === 0:
-    case getTargetMonth() > 0 && getTargetMonth() < 600:
+    case budgetDay === 0:
+    case budgetDay > 0 && budgetDay < 600:
         console.log('У вас низкий уровень дохода');
         break;
-    case getTargetMonth() < 0:
+    case budgetDay < 0:
         console.log('Что-то пошло не так');
 }
