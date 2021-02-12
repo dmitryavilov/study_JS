@@ -6,6 +6,7 @@ let money,
     deposit = confirm('Есть ли у вас депозит в банке?'),
     expenses = [],
     mission = 12000000,
+    budgetDay,
     period = 6;
 
 let isNumber = function(n) {
@@ -56,21 +57,23 @@ if (targetMonth < 0) {
     console.log('Цель не будет достигнута');
 }
 
+budgetDay = getAccumulatedMonth() / 30;
+
 showTypeOf(money);
 console.log(getTargetMonth());
 
 switch (true) {
-    case getAccumulatedMonth() >= 1200:
+    case budgetDay >= 1200:
         console.log('У вас высокий уровень дохода');
         break;
-    case getAccumulatedMonth() === 600:
-    case getAccumulatedMonth() > 600 && getAccumulatedMonth() < 1200:
+    case budgetDay === 600:
+    case budgetDay > 600 && budgetDay < 1200:
         console.log('У вас средний уровень дохода');
         break;
-    case getAccumulatedMonth() === 0:
-    case getAccumulatedMonth() > 0 && getAccumulatedMonth() < 600:
+    case budgetDay === 0:
+    case budgetDay > 0 && budgetDay < 600:
         console.log('У вас низкий уровень дохода');
         break;
-    case getAccumulatedMonth() < 0:
+    case budgetDay < 0:
         console.log('Что-то пошло не так');
 }
