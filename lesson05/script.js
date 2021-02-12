@@ -28,17 +28,19 @@ let showTypeOf = function(item) {
 
 let getExpensesMonth = function() {
     let sum = 0;
-
+    let sumFin = 0;
     for (let i = 0; i < 2; i++) {
         expenses[i] = prompt('Введите обязательную статью расходов?');
         do {
-            sum = prompt('Во сколько это обойдется?');
-        } while (!isNumber(sum));
-        sum += prompt('Во сколько это обойдется?');
+            sumFin = prompt('Во сколько это обойдется?');
+            sum = +sum + +sumFin;
+        } while (!isNumber(sumFin));
     }
-
+    console.log(sum);
     return sum;
 };
+
+
 
 let expensesAmount = getExpensesMonth();
 
@@ -60,7 +62,7 @@ if (targetMonth < 0) {
 budgetDay = getAccumulatedMonth() / 30;
 
 showTypeOf(money);
-console.log(getTargetMonth());
+console.log(budgetDay);
 
 switch (true) {
     case budgetDay >= 1200:
