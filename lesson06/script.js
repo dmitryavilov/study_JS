@@ -3,8 +3,8 @@
 const startGame = () => {
     const number = 73;
     let num = prompt('Угадай число от 0 до 100.');
-
-    switch(true) {
+    const checkVariant = () => {
+        switch(true) {
         case isNaN(num):
             alert('Введите число в верном формате');
             startGame();
@@ -30,7 +30,9 @@ const startGame = () => {
             break;
         case num == number:
             alert('Поздравляю, вы выйграли!');
+        }
     }
+    checkVariant();
 }
 
 startGame();
