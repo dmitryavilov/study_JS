@@ -1,8 +1,15 @@
 'use strict';
 
+let getNumber = (min, max) => {
+    let rand = min - 0.5 + Math.random() * (max - min + 1);
+    return Math.round(rand);
+};
+
+let number = getNumber(0, 100);
+
 const startGame = () => {
-    const number = 73;
     let num = prompt('Угадай число от 0 до 100.');
+    
     const checkVariant = () => {
         switch(true) {
         case isNaN(num):
