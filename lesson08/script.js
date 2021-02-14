@@ -1,6 +1,7 @@
 'use strict';
 
-let money;
+let money,
+    expsStr;
 
 let isNumber = function(n) {
     return !isNaN(parseInt(n)) && isFinite(n);
@@ -20,22 +21,53 @@ let appData = {
     },
     addIncome: [],
     expenses: {},
+    income: {},
     addExpenses: [],
     budget: money,
     budgetDay: 0,
     budgetMonth: 0,
     expensesMonth: 0,
     deposit: false,
+    percentDeposit: 0,
+    moneyDeposit: 0,
     mission: 12000000,
     period: 6,
     asking() {
-        let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую'),
-            sumFin;
-        appData.addExpenses = addExpenses.toLowerCase().split(',');
+        if (confirm('Есть ли у вас дополнительный заработок?')) {
+            let itemIncome,
+                cashIncome;
+            do {
+                itemIncome = prompt('Какой у вас дополнительный заработок?', 'Таксую');
+            } while (itemIncome.trim() === '' || !isNaN(itemIncome));
+
+            do {
+                cashIncome = prompt('Сколько в месяц вы на этом зарабатываете?', 10000);
+            } while(!isNumber(cashIncome));
+
+            appData.income[itemIncome] = cashIncome;
+        }
+
+        let sumFin;
+
+        appData.addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую'),
+        appData.addExpenses = appData.addExpenses.split(', ');
+
+        for (let i = 0; i<appData.addExpenses.length; i++) {
+            appData.addExpenses[i] = appData.addExpenses[i].charAt(0).toUpperCase() + appData.addExpenses[i].slice(1);
+        }
+
+        expsStr = appData.addExpenses.join(', ');
+            
         appData.deposit = confirm('Есть ли у вас депозит в банке?');
 
+
         for (let i = 0; i < 2; i++) {
-            let expense = prompt('Введите обязательную статью расходов?');            
+            let expense; 
+
+            do {
+                expense = prompt('Введите обязательную статью расходов?');
+            } while (expense.trim() === '' || !isNaN(expense));        
+
             do {
                 sumFin = prompt('Во сколько это обойдется?');
                 appData.expenses[expense] = +sumFin;
@@ -80,6 +112,20 @@ let appData = {
         }
 
         return statusIncome;
+    },
+    getInfoDeposit() {
+        if (appData.deposit) {
+            do {
+                appData.percentDeposit = prompt('Какой годовой процент?', 10);
+            } while(!isNumber(appData.percentDeposit));
+
+            do {
+                appData.moneyDeposit = prompt('Какая сумма заложена?', 10000);
+            } while(!isNumber(appData.moneyDeposit ));
+        }
+    },
+    calcSavedMoney() {
+        return appData.budgetMonth * appData.period;
     }
 }
 
@@ -89,12 +135,11 @@ appData.getBudget();
 
 
 console.log("Объект: ", appData.expenses);
-
 console.log("Расходы за месяц: ", appData.expensesMonth);
-
 console.log(appData.checkTargetMonth());
-
 console.log(appData.getStatusIncome());
-
 console.log("Бюджет на день: ", appData.budgetDay);
+console.log(expsStr);
+appData.getInfoDeposit();
+console.log(appData.percentDeposit, appData.moneyDeposit, appData.calcSavedMoney());
 
