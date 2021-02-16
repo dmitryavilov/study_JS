@@ -1,8 +1,8 @@
 'use strict';
 
 const finalPrice = document.getElementById('start'),
-      plusButtonOne = document.querySelectorAll('.btn_plus')[0],
-      plusButtonTwo = document.querySelectorAll('.btn_plus')[0],
+      plusButtonOne = document.getElementsByTagName('button')[0],
+      plusButtonTwo = document.getElementsByTagName('button')[1],
       depositCheckBox = document.querySelector('#deposit-check'),
       additionalIncomes = document.querySelectorAll('.additional_income-item'),
       rightSide = document.querySelector('.result'),
