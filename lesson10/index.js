@@ -20,12 +20,17 @@ const booksWrapper = document.querySelector('.books'),
 
       ad.style.display = "none";
 
+      
       books[0].querySelector('ul').prepend(chapters2[8]);
       books[0].querySelector('ul').prepend(chapters2[6]);
       books[0].querySelector('ul').prepend(chapters2[3]);
       books[0].querySelector('ul').prepend(chapters2[2]);
       books[0].querySelector('ul').prepend(chapters2[1]);
-      books[0].querySelector('ul').prepend(chapters2[0]);   
+      books[0].querySelector('ul').prepend(chapters2[0]);
+      books[0].querySelector('ul').append(chapters2[7]);
+      books[0].querySelector('ul').append(chapters2[9]);   
+      books[0].querySelector('ul').append(chapters2[2]);
+      books[0].querySelector('ul').append(chapters2[10]);   
 
       books[5].querySelector('ul').append(chapters5[5]);
       books[5].querySelector('ul').append(chapters5[8]);
