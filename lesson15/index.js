@@ -109,7 +109,7 @@ class AppData {
         _this.deposit = false;
         _this.percentDeposit = 0;
         _this.moneyDeposit = 0;
-        _this.mission = 12000000;
+        _this.mission = 0;
 
         leftSideFields.forEach(function(item) {
             item.disabled = false;
