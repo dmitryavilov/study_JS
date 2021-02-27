@@ -34,7 +34,7 @@ const finalPrice = document.getElementById('start'),
 
 let expsStr;
 
-let isNumber = function(n) {
+const isNumber = function(n) {
     return !isNaN(parseInt(n)) && isFinite(n);
 };
 
@@ -78,7 +78,6 @@ class AppData {
         plusButtonOne.disabled = true;
         plusButtonTwo.disabled = true;
         depositCheckBox.disabled = true;
-        periodSelect.disabled = true;
         periodSelect.value = 0;
         
         periodAmount.textContent = "1";
@@ -90,8 +89,10 @@ class AppData {
     }
 
     reset() {
-        let leftSideFields = document.querySelectorAll('input[type=text]');
-        const _this = this;
+        const leftSideFields = document.querySelectorAll('input[type=text]'),
+              incomeItems = document.querySelectorAll('.income-items'),
+              expensesItems = document.querySelectorAll('.expenses-items'),
+              _this = this;
 
         valuesItems.forEach(function(item) {
             item.value = "";
@@ -119,9 +120,23 @@ class AppData {
             item.value = "";
         });
 
+        if (incomeItems.length > 1) {
+            for (let i = 1; i < incomeItems.length; i++) {
+                incomeItems[i].remove();
+            }
+        }
+
+        if (expensesItems.length > 1) {
+            for (let i = 1; i < expensesItems.length; i++) {
+                expensesItems[i].remove();
+            }
+        }
+
+        plusButtonOne.style.display = "block";
+        plusButtonTwo.style.display = "block";
+
         plusButtonOne.disabled = false;
         plusButtonTwo.disabled = false;
-        periodSelect.disabled = false;
         depositCheckBox.disabled = false;
 
         finalPrice.style.display = "block";
@@ -156,7 +171,7 @@ class AppData {
                 cashExpenses = item.querySelector('.expenses-amount').value;
 
             if (itemExpenses !== '' && cashExpenses !== '') {
-                _this.expenses[itemExpenses] = cashExpenses;
+                _this.expenses[itemExpenses] = +cashExpenses;
             }
         });
     }
@@ -209,11 +224,11 @@ class AppData {
         const incomeItems = document.querySelectorAll('.income-items');
         const _this = this;
         incomeItems.forEach(function(item){
-            let itemIncome = item.querySelector('.income-title').value,
+            const itemIncome = item.querySelector('.income-title').value,
                 cashIncome = item.querySelector('.income-amount').value;
 
             if (itemIncome !== '' && cashIncome !== '') {
-                _this.income[itemIncome] = cashIncome;
+                _this.income[itemIncome] = +cashIncome;
             }
         });
     }
