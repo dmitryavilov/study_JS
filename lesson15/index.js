@@ -78,11 +78,7 @@ class AppData {
         plusButtonOne.disabled = true;
         plusButtonTwo.disabled = true;
         depositCheckBox.disabled = true;
-        periodSelect.value = 0;
         
-        periodAmount.textContent = "1";
-
-        depositCheckBox.checked = false;
 
         finalPrice.style.display = "none";
         cancel.style.display = "block";
@@ -138,6 +134,10 @@ class AppData {
         plusButtonOne.disabled = false;
         plusButtonTwo.disabled = false;
         depositCheckBox.disabled = false;
+
+        periodSelect.value = 0;
+        periodAmount.textContent = "1";
+        depositCheckBox.checked = false;
 
         finalPrice.style.display = "block";
         cancel.style.display = "none";
