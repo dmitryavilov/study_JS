@@ -78,6 +78,7 @@ window.addEventListener('DOMContentLoaded', () => {
         menuWrapper.addEventListener('click', e => {
             let target = e.target;
                 target = target.closest('a');
+                
             if (target.matches('a')) {
                 handlerMenu();
             };
