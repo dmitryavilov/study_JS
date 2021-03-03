@@ -64,6 +64,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const toggleMenu = () => {
         const btnMenu = document.querySelector('.menu'),
               menu = document.querySelector('menu'),
+              menuWrapper = menu.querySelector('ul'),
               closeBtn = document.querySelector('.close-btn'),
               menuItem = menu.querySelectorAll('ul>li');
 
@@ -74,8 +75,13 @@ window.addEventListener('DOMContentLoaded', () => {
         btnMenu.addEventListener('click', handlerMenu);
         closeBtn.addEventListener('click', handlerMenu);
 
-        menuItem.forEach(item => item.addEventListener('click', handlerMenu));
-        
+        menuWrapper.addEventListener('click', e => {
+            let target = e.target;
+                target = target.closest('a');
+            if (target.matches('a')) {
+                handlerMenu();
+            };
+        });
     };
 
     toggleMenu();
