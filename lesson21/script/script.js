@@ -173,11 +173,25 @@ window.addEventListener('DOMContentLoaded', () => {
     const slider = () => {
         const slide = document.querySelectorAll('.portfolio-item'),
               btn = document.querySelectorAll('.portfolio-btn'),
-              dot = document.querySelectorAll('.dot'),
-              slider = document.querySelector('.slider');
+              slider = document.querySelector('.slider'),
+              dotsList = slider.querySelector('.portfolio-dots');
 
         let currentSlide = 0,
             int;
+
+        const createDots = () => {
+            for (let i = 0; i < slide.length; i++) {
+                dotsList.innerHTML += `<li class="dot"></li>`;
+            }
+            
+            let dots = document.querySelectorAll('.dot');
+
+            dots[0].classList.add('dot-active');
+        };
+
+        createDots();
+
+        const dot = document.querySelectorAll('.dot');
 
         const prevSlide = (elem, index, strClass) => {
             elem[index].classList.remove(strClass);
