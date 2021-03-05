@@ -276,5 +276,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     };
 
+    //Test
+
     slider();
 });
