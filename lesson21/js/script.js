@@ -27,7 +27,7 @@ class ToDo {
         li.classList.add('todo-item');
         li.key = todo.key;
         li.insertAdjacentHTML('beforeend', `
-            <span class="text-todo">${todo.value} ключ: ${li.key}</span>
+            <span class="text-todo">${todo.value}</span>
             <div class="todo-buttons">
                 <button class="todo-remove"></button>
                 <button class="todo-complete"></button>
@@ -91,11 +91,13 @@ class ToDo {
 
     init() {
         this.form.addEventListener('submit', this.addTodo.bind(this));
+        this.handler();
         this.render();
     }
+
+    //END
 };
 
 const todolist = new ToDo('.todo-control', '.header-input', '.todo-list', '.todo-completed');
 
 todolist.init();
-todolist.handler();
