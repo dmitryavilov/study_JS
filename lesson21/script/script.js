@@ -172,9 +172,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
     const slider = () => {
         const slide = document.querySelectorAll('.portfolio-item'),
-              btn = document.querySelectorAll('.portfolio-btn'),
               slider = document.querySelector('.slider'),
-              dotsList = slider.querySelector('.portfolio-dots');
+              dotsList = document.querySelector('.portfolio-dots');
 
         let currentSlide = 0,
             int;
@@ -223,8 +222,7 @@ window.addEventListener('DOMContentLoaded', () => {
         };
 
         slider.addEventListener('click', e => {
-            let target = e.target,
-                int;
+            let target = e.target;
 
             e.preventDefault();
 
@@ -275,8 +273,6 @@ window.addEventListener('DOMContentLoaded', () => {
         startSlide(2500);
 
     };
-
-    //Test
 
     slider();
 });
