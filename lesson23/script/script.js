@@ -302,8 +302,8 @@ window.addEventListener('DOMContentLoaded', () => {
         const calcBlock = document.querySelector('.calc-block');
 
         const calculatorValidation = e => {
-            let target = e.target,
-                input = target.matches('.calc-item');
+            let target = e.target;
+
             target.value = target.value.replace(/\D/, '');
         };
         
@@ -320,4 +320,46 @@ window.addEventListener('DOMContentLoaded', () => {
     };
 
     calculator();
+
+    //Feedback
+
+    const feedBack = () => {
+        const fbForm = document.getElementById('form2');
+
+        const feedBackValidation = e => {
+            let target = e.target;
+
+            switch (true) {
+                case (target.id === 'form2-name'):
+                    target.value = target.value.replace(/[a-z]/gi, '');
+                    target.value = target.value.replace(/\d/gi, '');
+                    target.value = target.value.replace(/\s+/gi, ' ');
+                    target.value = target.value.replace(/( |^)[а-яё]/g, x => x.toUpperCase() );
+                    break;
+                case (target.id === 'form2-email'):
+                    target.value = target.value.match(/\w+[\.\~\!\-\*']*?\w+@\w+\.+\w{2,3}/gi)[0];
+                    break;
+                case (target.id === 'form2-phone'):
+                    target.value = target.value.match(/\+?[7,8]([-()]*\d){10}/g);
+                    break;
+                case (target.id === 'form2-message'):
+                    target.value = target.value.replace(/\d/gi, '');
+                    break;
+            };
+        };
+        
+        fbForm.addEventListener('click', e => {
+            let target = e.target,
+                input = target.matches('.top-form'),
+                message = target.matches('.mess');
+
+            if (input || message) {
+                target.addEventListener('blur', feedBackValidation);
+            } else {
+                target.removeEventListener('blur', feedBackValidation);
+            };
+        });
+    };
+
+    feedBack();
 });
