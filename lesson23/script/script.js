@@ -289,11 +289,35 @@ window.addEventListener('DOMContentLoaded', () => {
 
                 target.addEventListener('mouseout', () => {
                     target.src = target.dataset.back;
-                    target.removeEventListener();
                 });
             };
         });
     };
 
     ourCommand();
+
+    //Calculator
+
+    const calculator = () => {
+        const calcBlock = document.querySelector('.calc-block');
+
+        const calculatorValidation = e => {
+            let target = e.target,
+                input = target.matches('.calc-item');
+            target.value = target.value.replace(/\D/, '');
+        };
+        
+        calcBlock.addEventListener('click', e => {
+            let target = e.target,
+                input = target.matches('.calc-item');
+
+            if (input) {
+                target.addEventListener('input', calculatorValidation);
+            } else {
+                target.removeEventListener('input', calculatorValidation);
+            }
+        });
+    };
+
+    calculator();
 });
