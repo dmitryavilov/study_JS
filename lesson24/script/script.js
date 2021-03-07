@@ -333,7 +333,32 @@ window.addEventListener('DOMContentLoaded', () => {
                 total = price * typeValue * squareValue * countValue * dayValue;
             };
 
-            totalPrice.textContent = total;
+            
+            const toCount = () => {
+                let counter = 0;
+
+                if (counter < total) {
+                    for (let i = 0; i < Math.floor(total); i++) {
+                        const changeCount = () => {
+                            counter = i;
+                            totalPrice.textContent = counter;
+                        };
+
+                        setTimeout(changeCount, 220);
+                    }
+                } else if (counter > total) {
+                    for (let i = 0; i < Math.floor(total); i++) {
+                        counter = i;
+                        const changeCount = () => {
+                            totalPrice.textContent = counter;
+                        };
+
+                        setTimeout(changeCount, 220);
+                    }
+                }
+            };
+
+            toCount();
         }
 
         calcBlock.addEventListener('change', e => {
