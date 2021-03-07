@@ -298,14 +298,52 @@ window.addEventListener('DOMContentLoaded', () => {
 
     //Calculator
 
-    const calculator = () => {
-        const calcBlock = document.querySelector('.calc-block');
+    const calculator = (price = 100) => {
+        const calcBlock = document.querySelector('.calc-block'),
+              calcType = document.querySelector('.calc-type'),
+              calcCount = document.querySelector('.calc-count'),
+              calcSquare = document.querySelector('.calc-square'),
+              calcDay = document.querySelector('.calc-day'),
+              totalPrice = document.getElementById('total');
 
         const calculatorValidation = e => {
             let target = e.target;
 
-            target.value = target.value.replace(/\D/, '');
+            target.value = target.value.replace(/[а-яёa-z]/i, '');
         };
+
+        const calcSum = () => {
+            let total = 0,
+                countValue = 1,
+                dayValue = 1;
+            const typeValue = calcType.options[calcType.selectedIndex].value,
+                  squareValue = +calcSquare.value;
+
+            if (calcCount.value > 1) {
+                countValue += (calcCount.value - 1) / 10;
+            };
+
+            if (calcDay.value && calcDay.value < 5) {
+                dayValue *= 2;
+            } else if (calcDay.value && calcDay.value < 10){
+                dayValue *= 1.5;
+            };
+
+            if (typeValue && squareValue) {
+                total = price * typeValue * squareValue * countValue * dayValue;
+            };
+
+            totalPrice.textContent = total;
+        }
+
+        calcBlock.addEventListener('change', e => {
+            let target = e.target;
+
+            
+            if (target.matches('.calc-item')) {
+                calcSum();
+            };
+        });
         
         calcBlock.addEventListener('click', e => {
             let target = e.target,
@@ -319,7 +357,7 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    calculator();
+    calculator(100);
 
     //Feedback
 
@@ -333,14 +371,8 @@ window.addEventListener('DOMContentLoaded', () => {
                 target.value = elem;
             };
 
-            switch (true) {
-                case (target.id === 'form2-name' || target.id === 'form2-message'):
-                    if (target.id === 'form2-message') {
-                        valueReplace(target.value.replace(/\d/gi, ''));
-
-                        return;
-                    };
-                    
+            switch (target.id) {
+                case ('form2-name'):
                     valueReplace(target.value.replace(/( |\-){1}[a-z]( |\-){1}/gi, ''));
                     valueReplace(target.value.replace(/\d/gi, ''));
                     valueReplace(target.value.replace(/((\-){2,}|)*((\-){2,}|)*/gi, ''));
@@ -348,12 +380,16 @@ window.addEventListener('DOMContentLoaded', () => {
                     valueReplace(target.value.replace(/( |^)[а-яё]/g, x => x.toUpperCase()));
 
                     break;
-                case (target.id === 'form2-email'):
+                case ('form2-email'):
                     valueReplace(target.value.match(/\w(\w|\.|\-|~|'|!|\*)+@\w(\w|\.|\-|~|'|!|\*)+\.\w{1,3}/gi));
                     
                     break;
-                case (target.id === 'form2-phone'):
+                case ('form2-phone'):
                     valueReplace(target.value.match(/\+?[7,8]([-()]*\d){10}/g));
+
+                    break;
+                case ('form2-message'):
+                    valueReplace(target.value.replace(/\d/gi, ''));
 
                     break;
             };
