@@ -434,4 +434,87 @@ window.addEventListener('DOMContentLoaded', () => {
     };
 
     feedBack();
+
+    //Send-ajax-form
+
+    const sendForm = form => {
+        const errorMessage = 'Что-то пошло не так...',
+              loadMessage = 'Загрузка...',
+              successMessage = 'Спасибо! Мы скоро с вами свяжемся';
+
+        const statusMessage = document.createElement('div');
+
+        statusMessage.style.cssText = 'font-size: 2rem';
+
+        const postData = (body, outputData, error) => {
+            const request = new XMLHttpRequest();
+
+            request.addEventListener('readystatechange', () => {
+                if (request.readyState !== 4) {
+                    return;
+                }
+
+                if (request.status === 200) {
+                    outputData();
+                } else {
+                    error(request.status);
+                }
+            });
+
+            request.open('POST', './server.php');
+            request.setRequestHeader('Content-Type', 'application/json');
+
+            request.send(JSON.stringify(body));
+
+        };
+
+        const clearInputs = () => {
+            const inputs = form.querySelectorAll('input');
+
+            inputs.forEach(elem => elem.value = '');
+        }
+
+        const validation = () => {
+            if (form.id === 'form1' || form.id === 'form3') {
+                form.addEventListener('input', e => {
+                    let target = e.target;
+
+                    if (target.matches('input[type=text]')) {
+                        target.value = target.value.match(/[а-яё ]+/i, '');
+                    } else if (target.matches('input[type=tel]')) {
+                        target.value = target.value.match(/[0123456789+]+/);
+                    }
+                });
+            } else {
+                console.log('=)');
+            }
+        };
+
+        validation();
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+
+            form.appendChild(statusMessage);
+            statusMessage.textContent = loadMessage;
+            const formData = new FormData(form);
+            let body = {
+
+            };
+
+            for (let val of formData.entries()) {
+                body[val[0]] = val[1];
+            }
+            postData(body, () => {
+                statusMessage.textContent = successMessage;
+            }, error => {
+                console.log(error);
+                statusMessage.textContent = errorMessage;
+            });
+            clearInputs();
+        });
+    }
+
+    sendForm(document.getElementById('form1'));
+    sendForm(document.getElementById('form3'));
 });
