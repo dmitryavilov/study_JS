@@ -419,6 +419,18 @@ window.addEventListener('DOMContentLoaded', () => {
                     break;
             };
         };
+
+        fbForm.addEventListener('input', e => {
+            let target = e.target;
+
+            if (target.matches('input[type=text]')) {
+                target.value = target.value.match(/[а-яё ]+/i, '');
+            } else if (target.matches('input[type=tel]')) {
+                target.value = target.value.match(/[0123456789+]+/);
+            } else {
+                target.value = target.value.match(/[а-яё0123456789\.,\-:;'" ]+/i);
+            }
+        })
         
         fbForm.addEventListener('click', e => {
             let target = e.target,
@@ -517,4 +529,5 @@ window.addEventListener('DOMContentLoaded', () => {
 
     sendForm(document.getElementById('form1'));
     sendForm(document.getElementById('form3'));
+    sendForm(document.getElementById('form2'));
 });
