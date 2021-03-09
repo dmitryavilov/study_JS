@@ -505,25 +505,33 @@ window.addEventListener('DOMContentLoaded', () => {
         validation();
 
         form.addEventListener('submit', e => {
-            e.preventDefault();
+           e.preventDefault();
+           if (form.querySelector('input[type=text]').value.trim().length >= 2 &&
+               form.querySelector('input[type=email]').value.trim() !== '' &&
+               form.querySelector('input[type=tel]').value.length >= 7 &&
+               form.querySelector('input[type=tel]').value.length <= 11) 
+            { 
 
-            form.appendChild(statusMessage);
-            statusMessage.textContent = loadMessage;
-            const formData = new FormData(form);
-            let body = {
+                form.appendChild(statusMessage);
+                statusMessage.textContent = loadMessage;
+                const formData = new FormData(form);
+                let body = {
 
-            };
+                };
 
-            for (let val of formData.entries()) {
-                body[val[0]] = val[1];
+                for (let val of formData.entries()) {
+                    body[val[0]] = val[1];
+                }
+                postData(body, () => {
+                    statusMessage.textContent = successMessage;
+                }, error => {
+                    console.log(error);
+                    statusMessage.textContent = errorMessage;
+                });
+                clearInputs();
+            } else {
+                console.log('нене');
             }
-            postData(body, () => {
-                statusMessage.textContent = successMessage;
-            }, error => {
-                console.log(error);
-                statusMessage.textContent = errorMessage;
-            });
-            clearInputs();
         });
     }
 
