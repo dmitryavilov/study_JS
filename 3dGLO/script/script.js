@@ -522,15 +522,25 @@ window.addEventListener('DOMContentLoaded', () => {
                 for (let val of formData.entries()) {
                     body[val[0]] = val[1];
                 }
+
                 postData(body, () => {
+                    statusMessage.style.display = 'block';
                     statusMessage.textContent = successMessage;
+                    setInterval(() => {
+                        statusMessage.style.display = 'none';
+                    }, 5000);
                 }, error => {
+                    statusMessage.style.display = 'block';
                     console.log(error);
                     statusMessage.textContent = errorMessage;
+                    console.log(statusMessage);
+                    setInterval(() => {
+                        statusMessage.style.display = 'none';
+                    }, 5000);
                 });
                 clearInputs();
             } else {
-                console.log('нене');
+                alert('Данные введены некорректно');
             }
         });
     }
