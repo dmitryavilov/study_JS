@@ -458,25 +458,27 @@ window.addEventListener('DOMContentLoaded', () => {
 
         statusMessage.style.cssText = 'font-size: 2rem';
 
-        const postData = (body, outputData, error) => {
-            const request = new XMLHttpRequest();
-
-            request.addEventListener('readystatechange', () => {
-                if (request.readyState !== 4) {
-                    return;
-                }
-
-                if (request.status === 200) {
-                    outputData();
-                } else {
-                    error(request.status);
-                }
-            });
-
-            request.open('POST', './server.php');
-            request.setRequestHeader('Content-Type', 'application/json');
-
-            request.send(JSON.stringify(body));
+        const postData = body => {
+            return new Promise((resolve, reject) => {
+                const request = new XMLHttpRequest();
+    
+                request.addEventListener('readystatechange', () => {
+                    if (request.readyState !== 4) {
+                        return;
+                    }
+    
+                    if (request.status === 200) {
+                        resolve(request.status);
+                    } else {
+                        reject(request.status);
+                    }
+                });
+    
+                request.open('POST', './server.php');
+                request.setRequestHeader('Content-Type', 'application/json');
+    
+                request.send(JSON.stringify(body));
+            })
 
         };
 
@@ -523,21 +525,22 @@ window.addEventListener('DOMContentLoaded', () => {
                     body[val[0]] = val[1];
                 }
 
-                postData(body, () => {
+                postData(body).then(() => {
                     statusMessage.style.display = 'block';
                     statusMessage.textContent = successMessage;
                     setInterval(() => {
                         statusMessage.style.display = 'none';
                     }, 5000);
-                }, error => {
+                }).catch(error => {
                     statusMessage.style.display = 'block';
                     console.log(error);
                     statusMessage.textContent = errorMessage;
                     console.log(statusMessage);
                     setInterval(() => {
                         statusMessage.style.display = 'none';
-                    }, 5000);
-                });
+                    }, 5000)});
+                
+
                 clearInputs();
             } else {
                 alert('Данные введены некорректно');
