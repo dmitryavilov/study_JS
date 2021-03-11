@@ -520,6 +520,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
                 form.appendChild(statusMessage);
                 statusMessage.textContent = loadMessage;
+                statusMessage.style.color = 'white';
                 const formData = new FormData(form);
                 let body = {
 
