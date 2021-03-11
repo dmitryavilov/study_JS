@@ -405,10 +405,6 @@ window.addEventListener('DOMContentLoaded', () => {
                     valueReplace(target.value.replace(/( |^)[а-яё]/g, x => x.toUpperCase()));
 
                     break;
-                case ('form2-email'):
-                    valueReplace(target.value.match(/\w(\w|\.|\-|~|'|!|\*)+@\w(\w|\.|\-|~|'|!|\*)+\.\w{1,3}/gi));
-                    
-                    break;
                 case ('form2-phone'):
                     valueReplace(target.value.match(/\+?[7,8]([-()]*\d){10}/g));
 
