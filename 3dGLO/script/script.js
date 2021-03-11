@@ -427,6 +427,8 @@ window.addEventListener('DOMContentLoaded', () => {
                 target.value = target.value.match(/[а-яё ]+/i, '');
             } else if (target.matches('input[type=tel]')) {
                 target.value = target.value.match(/[0123456789+]+/);
+            } else if (target.matches('input[type=email]')) {
+                target.value = target.value.match(/[a-z0123456789\.@+]+/i);
             } else {
                 target.value = target.value.match(/[а-яё0123456789\.,\-:;'" ]+/i);
             }
@@ -497,6 +499,8 @@ window.addEventListener('DOMContentLoaded', () => {
                         target.value = target.value.match(/[а-яё ]+/i, '');
                     } else if (target.matches('input[type=tel]')) {
                         target.value = target.value.match(/[0123456789+]+/);
+                    } else if (target.matches('input[type=email]')) {
+                        target.value = target.value.match(/[a-z0123456789\.@+]+/i);
                     }
                 });
             } else {
@@ -527,12 +531,14 @@ window.addEventListener('DOMContentLoaded', () => {
 
                 postData(body).then(() => {
                     statusMessage.style.display = 'block';
+                    statusMessage.style.color = 'white';
                     statusMessage.textContent = successMessage;
                     setInterval(() => {
                         statusMessage.style.display = 'none';
                     }, 5000);
                 }).catch(error => {
                     statusMessage.style.display = 'block';
+                    statusMessage.style.color = 'white';
                     console.log(error);
                     statusMessage.textContent = errorMessage;
                     console.log(statusMessage);
