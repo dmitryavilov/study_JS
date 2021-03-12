@@ -457,27 +457,13 @@ window.addEventListener('DOMContentLoaded', () => {
         statusMessage.style.cssText = 'font-size: 2rem';
 
         const postData = body => {
-            return new Promise((resolve, reject) => {
-                const request = new XMLHttpRequest();
-    
-                request.addEventListener('readystatechange', () => {
-                    if (request.readyState !== 4) {
-                        return;
-                    }
-    
-                    if (request.status === 200) {
-                        resolve(request.status);
-                    } else {
-                        reject(request.status);
-                    }
-                });
-    
-                request.open('POST', './server.php');
-                request.setRequestHeader('Content-Type', 'application/json');
-    
-                request.send(JSON.stringify(body));
-            })
-
+            return fetch('./server.php',{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
+            });
         };
 
         const clearInputs = () => {
@@ -526,7 +512,11 @@ window.addEventListener('DOMContentLoaded', () => {
                     body[val[0]] = val[1];
                 }
 
-                postData(body).then(() => {
+                postData(body).then(request => {
+                    if (request.status !== 200) {
+                        throw new Error('status network not 200.')
+                    };
+                    
                     statusMessage.style.display = 'block';
                     statusMessage.style.color = 'white';
                     statusMessage.textContent = successMessage;
