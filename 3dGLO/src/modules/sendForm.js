@@ -43,8 +43,19 @@ const sendForm = form => {
 
         validation();
 
+        const form2 = document.getElementById('form2');
+
         form.addEventListener('submit', e => {
            e.preventDefault();
+
+           if (form.querySelector('.mess')) {
+               if (document.getElementById('form2-message').value.trim() === '') {
+                    e.preventDefault();
+                    alert('Ошибка! Введите сообщение!');
+                    return;
+               };
+           };
+
            if (form.querySelector('input[type=text]').value.trim().length >= 2 &&
                form.querySelector('input[type=email]').value.trim() !== '' &&
                form.querySelector('input[type=tel]').value.length >= 7 &&
@@ -67,10 +78,15 @@ const sendForm = form => {
                     if (request.status !== 200) {
                         throw new Error('status network not 200.')
                     };
+
+                    setTimeout(() => {
+                        document.querySelector('.popup').style.display = 'none';
+                    }, 5000);
                     
                     statusMessage.style.display = 'block';
                     statusMessage.style.color = 'white';
                     statusMessage.textContent = successMessage;
+
                     setInterval(() => {
                         statusMessage.style.display = 'none';
                     }, 5000);
