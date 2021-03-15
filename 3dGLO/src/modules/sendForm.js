@@ -31,7 +31,7 @@ const sendForm = form => {
                     if (target.matches('input[type=text]')) {
                         target.value = target.value.match(/[а-яё ]+/i, '');
                     } else if (target.matches('input[type=tel]')) {
-                        target.value = target.value.match(/[0123456789+]+/);
+                        target.value = target.value.match(/[\+0123456789]+/);
                     } else if (target.matches('input[type=email]')) {
                         target.value = target.value.match(/[a-z0123456789\.@+]+/i);
                     }
@@ -59,7 +59,7 @@ const sendForm = form => {
            if (form.querySelector('input[type=text]').value.trim().length >= 2 &&
                form.querySelector('input[type=email]').value.trim() !== '' &&
                form.querySelector('input[type=tel]').value.length >= 7 &&
-               form.querySelector('input[type=tel]').value.length <= 11) 
+               form.querySelector('input[type=tel]').value.length <= 12) 
             { 
 
                 form.appendChild(statusMessage);
