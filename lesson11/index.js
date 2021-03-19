@@ -28,7 +28,8 @@ let finalPrice = document.getElementById('start'),
       targetMonthValue = valuesItems[6],
       periodSelect = document.querySelector('.period-select'),
       periodAmount = document.querySelector('.period-amount'),
-      icomeItems = document.querySelectorAll('.income-items');
+      icomeItems = document.querySelectorAll('.income-items'),
+      data = document.querySelector('.data');
 
 let expsStr;
 
@@ -76,6 +77,10 @@ let appData = {
     addExpensesBlock() {
         let expensesItems = document.querySelectorAll('.expenses-items');
         let cloneExpensesItem = expensesItems[0].cloneNode(true);
+        console.log(cloneExpensesItem);
+        cloneExpensesItem.querySelector('.expenses-title').value = '';
+        cloneExpensesItem.querySelector('.expenses-amount').value = '';
+
         expensesItems[0].parentNode.insertBefore(cloneExpensesItem, plusButtonTwo);
 
         if (expensesItems.length === 3) {
@@ -85,6 +90,8 @@ let appData = {
     addIncomeBlock() {
         let incomeItems = document.querySelectorAll('.income-items');
         let cloneIncomeItem = incomeItems[0].cloneNode(true);
+        cloneIncomeItem.querySelector('.income-title').value = '';
+        cloneIncomeItem.querySelector('.income-amount').value = '';
         incomeItems[0].parentNode.insertBefore(cloneIncomeItem, plusButtonOne);
 
         if (incomeItems.length === 2) {
@@ -241,6 +248,15 @@ plusButtonOne.addEventListener('click', appData.addIncomeBlock);
 plusButtonTwo.addEventListener('click', appData.addExpensesBlock);
 finalPrice.addEventListener('click', appData.start);
 salaryAmount.addEventListener('input', appData.salaryCheck);
+data.addEventListener('input', e => {
+    let target = e.target;
+
+    if (target.matches('.income-title') || target.matches('.expenses-title')) {
+        target.value = target.value.replace(/[\w]/i, '');
+    } else if (target.matches('.income-amount') || target.matches('.expenses-amount')) {
+        target.value = target.value.replace(/\D/i, '');
+    };
+});
 
 console.log(appData.expensesMonth);
 
